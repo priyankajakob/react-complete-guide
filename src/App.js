@@ -55,6 +55,30 @@ class App extends Component {
       padding:'5px'
     }
 
+    let persons=null
+    if(this.state.showNames){
+      persons=
+      <div>
+        <Person 
+          name={this.state.persons[0].name} 
+          age={this.state.persons[0].age}/>
+        <Person 
+          name={this.state.persons[1].name}
+          nameChange={this.handleNameChange}
+          switchNameClick = {this.handleSwitchName} 
+          age={this.state.persons[1].age}>My hobbies are Singing, Dancing</Person>
+        <Person 
+          name={this.state.persons[2].name} 
+          age={this.state.persons[2].age}>
+            <h5>I love cooking</h5>
+        </Person>
+        <Person 
+          name={this.state.persons[3].name} 
+          age={this.state.persons[3].age}>
+        </Person>
+      </div>
+    }
+
     return (
       <div className="App">
         <h1>This is my React App</h1>
@@ -62,28 +86,7 @@ class App extends Component {
         {/* <button onClick={this.handleSwitchName}>Switch Name</button> */}
         {/* <button style={style} onClick={this.handleSwitchName.bind(this,'Priyanka!')}>Switch Name</button> */}
         <button style={style} onClick={this.toggleShowNames}>Hide/Show Names</button>
-        {this.state.showNames?
-         <div>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age}/>
-          <Person 
-            name={this.state.persons[1].name}
-            nameChange={this.handleNameChange}
-            switchNameClick = {this.handleSwitchName} 
-            age={this.state.persons[1].age}>My hobbies are Singing, Dancing</Person>
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age}>
-              <h5>I love cooking</h5>
-          </Person>
-          <Person 
-            name={this.state.persons[3].name} 
-            age={this.state.persons[3].age}>
-          </Person>
-       </div>:null}
-       
-       
+        {persons} 
       </div>
     );
   }
