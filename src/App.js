@@ -13,23 +13,23 @@ class App extends Component {
       showNames:true
     }
 
-    handleSwitchName=(newName)=>{
-      console.log("clicked")
-      //DONT DO THIS, DO NOT MUTATE STATE DIRECTLY. REACT DOESN"T RENDER THIS
-      // this.state.persons=[
-      //   {name:"Maxmillian",age:29},
-      //   {name:"ManuJosh",age:30},
-      //   {name:"MeenaKumari",age:50}
-      // ]
-      this.setState({
-        persons:[
-          {name:"Maxmillian",age:29},
-          {name:"ManuJosh",age:30},
-          {name:"MeenaKumari",age:50},
-          {name:newName,age:20 }
-        ]
-      })
-    }
+    // handleSwitchName=(newName)=>{
+    //   console.log("clicked")
+    //   //DONT DO THIS, DO NOT MUTATE STATE DIRECTLY. REACT DOESN"T RENDER THIS
+    //   // this.state.persons=[
+    //   //   {name:"Maxmillian",age:29},
+    //   //   {name:"ManuJosh",age:30},
+    //   //   {name:"MeenaKumari",age:50}
+    //   // ]
+    //   this.setState({
+    //     persons:[
+    //       {name:"Maxmillian",age:29},
+    //       {name:"ManuJosh",age:30},
+    //       {name:"MeenaKumari",age:50},
+    //       {name:newName,age:20 }
+    //     ]
+    //   })
+    // }
 
     handleNameChange=(event)=>{
       this.setState({
@@ -46,6 +46,14 @@ class App extends Component {
     const doesNames = this.state.showNames
     this.setState({showNames:!doesNames})
   }
+  handleDeleteName=(id)=>{
+    const arr = [].concat(this.state.persons)
+    arr.splice(id,1)
+    this.setState({
+      persons : [...arr]
+    })
+  }
+
   render(){
     const style = {
       backgroundColor:'white',
@@ -59,23 +67,17 @@ class App extends Component {
     if(this.state.showNames){
       persons=
       <div>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age}/>
-        <Person 
-          name={this.state.persons[1].name}
-          nameChange={this.handleNameChange}
-          switchNameClick = {this.handleSwitchName} 
-          age={this.state.persons[1].age}>My hobbies are Singing, Dancing</Person>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age}>
-            <h5>I love cooking</h5>
-        </Person>
-        <Person 
-          name={this.state.persons[3].name} 
-          age={this.state.persons[3].age}>
-        </Person>
+        {this.state.persons.map((person,index)=>{
+          return(
+            <Person 
+              key={index}
+              name ={person.name}
+              age = {person.age}
+              deleteName={()=>this.handleDeleteName(index)}
+              nameChange={this.handleNameChange}
+            />
+          )
+        })}
       </div>
     }
 
