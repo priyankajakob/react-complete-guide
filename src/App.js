@@ -5,14 +5,14 @@ import './App.css';
 import Person from './component/persons/Person'
 
 const StyledButton = styled.button`
-  background-color:green;
+  background-color:${props=>props.alt?'green':'red'};
   color:white;
   border:1px solid black;
   cursor:pointer;
   font:inherit;
   padding:5px;
   &:hover {
-    background-color:lightgreen;
+    background-color:${props=>props.alt?'lightgreen':'salmon'};
     color:black
   }
 `
