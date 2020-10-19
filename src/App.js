@@ -5,10 +5,10 @@ import Person from './component/persons/Person'
 class App extends Component {
     state={
       persons:[
-        {name:"Max",age:29},
-        {name:"Manu",age:30},
-        {name:"Meen",age:50},
-        {name:"Priyanka",age:20 }
+        {id:'11',name:"Max",age:29},
+        {id:'22',name:"Manu",age:30},
+        {id:'33',name:"Meen",age:50},
+        {id:'44',name:"Priyanka",age:20 }
       ],
       showNames:true
     }
@@ -31,14 +31,20 @@ class App extends Component {
     //   })
     // }
 
-    handleNameChange=(event)=>{
+    handleNameChange=(event,id)=>{
+      // const arr = [...this.state.persons]
+      const personIndex=this.state.persons.findIndex(p=>p.id==id)
+      
+      // arr[personIndex].name=event.target.value
+
+      const person = {...this.state.persons[personIndex]}
+      person.name=event.target.value
+
+      const persons = [...this.state.persons]
+      persons[personIndex]=person
+
       this.setState({
-        persons:[
-          {name:"Maxmillian",age:29},
-          {name:event.target.value,age:30},
-          {name:"MeenaKumari",age:50},
-          {name:"Priyanka",age:20 }
-        ]
+        persons:persons
       })
     }
 
@@ -46,17 +52,21 @@ class App extends Component {
     const doesNames = this.state.showNames
     this.setState({showNames:!doesNames})
   }
-  handleDeleteName=(id)=>{
+  handleDeleteName=(index)=>{
+    
     const arr = [].concat(this.state.persons)
-    arr.splice(id,1)
+    arr.splice(index,1)
+    //From the docs arr.slice([begin[, end]]), If begin is undefined, slice begins from index 0.`
     this.setState({
-      persons : [...arr]
+      persons : [].concat(arr)
     })
   }
 
   render(){
+    console.log("render called")
     const style = {
-      backgroundColor:'white',
+      backgroundColor:'green',
+      color:'white',
       border:'1px solid black',
       cursor:'pointer',
       font:'inherit',
@@ -70,15 +80,17 @@ class App extends Component {
         {this.state.persons.map((person,index)=>{
           return(
             <Person 
-              key={index}
+             id={person.id}
+              key={person.id}
               name ={person.name}
               age = {person.age}
               deleteName={()=>this.handleDeleteName(index)}
-              nameChange={this.handleNameChange}
+              nameChange={(event)=>this.handleNameChange(event,person.id)}
             />
           )
         })}
       </div>
+      style.backgroundColor='red'
     }
 
     return (
