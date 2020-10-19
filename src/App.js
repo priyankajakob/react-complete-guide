@@ -93,10 +93,17 @@ class App extends Component {
       style.backgroundColor='red'
     }
 
+    const className=[]
+    if(this.state.persons.length<=2)
+    className.push('red') //classes=['red']
+    if(this.state.persons.length<=1)
+    className.push('red','bold')//classes=['red','bold']
+    
+
     return (
       <div className="App">
         <h1>This is my React App</h1>
-        <p>Person Details</p>
+        <p className={className.join(' ')}>Person Details</p>
         {/* <button onClick={this.handleSwitchName}>Switch Name</button> */}
         {/* <button style={style} onClick={this.handleSwitchName.bind(this,'Priyanka!')}>Switch Name</button> */}
         <button style={style} onClick={this.toggleShowNames}>Hide/Show Names</button>
