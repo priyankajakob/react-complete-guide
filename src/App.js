@@ -1,8 +1,21 @@
 import React,{Component} from 'react';
 // import Radium,{StyleRoot} from 'radium'
-
+import styled from 'styled-components'
 import './App.css';
 import Person from './component/persons/Person'
+
+const StyledButton = styled.button`
+  background-color:green;
+  color:white;
+  border:1px solid black;
+  cursor:pointer;
+  font:inherit;
+  padding:5px;
+  &:hover {
+    background-color:lightgreen;
+    color:black
+  }
+`
 
 class App extends Component {
     state={
@@ -117,7 +130,8 @@ class App extends Component {
         <p className={className.join(' ')}>Person Details</p>
         {/* <button onClick={this.handleSwitchName}>Switch Name</button> */}
         {/* <button style={style} onClick={this.handleSwitchName.bind(this,'Priyanka!')}>Switch Name</button> */}
-        <button style={style} onClick={this.toggleShowNames}>Hide/Show Names</button>
+        {/* <button style={style} onClick={this.toggleShowNames}>Hide/Show Names</button> */}
+        <StyledButton alt={this.state.showNames} onClick={this.toggleShowNames}>Hide/ShowNames</StyledButton>
         {persons} 
       </div>
       // </StyleRoot>
